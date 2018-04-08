@@ -19,21 +19,21 @@ let setupPartTwo = async function(addressesJson) {
     archives[address] = new DatArchive(address)
   }
 
-  messageForm.addEventListener('submit', function(event) {
+  messageForm.addEventListener('submit', async function(event) {
     event.preventDefault()
     let newMessage = event.target.elements.message.value
     event.target.elements.message.value = ''
-    archives[window.location.host].writeFile('message.txt', newMessage)
-
+    await archives[window.location.host].writeFile('message.txt', newMessage)
+    await archives[window.location.host].commit()
   })
 
-  subscribeForm.addEventListener('submit', function(event) {
+  subscribeForm.addEventListener('submit', async function(event) {
     event.preventDefault()
     let newAddress = event.target.elements.address.value
     event.target.elements.address.value = ''
     addresses.push(newAddress)
-    archives[window.location.host].writeFile('addresses.json', JSON.stringify(addresses))
-
+    await archives[window.location.host].writeFile('addresses.json', JSON.stringify(addresses))
+    await archives[window.location.host].commit()
   })
 
 }
