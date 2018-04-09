@@ -34,6 +34,7 @@ let setupPartTwo = async function(addressesJson) {
     addresses.push(newAddress)
     await archives[window.location.host].writeFile('addresses.json', JSON.stringify(addresses))
     await archives[window.location.host].commit()
+    window.location.reload()
   })
 
 }
